@@ -55,15 +55,30 @@ namespace StatisticsUniqWordsHttp
 
             sr.Close();
 
+            //инициализация объектов для записи в БД
+            //master
+            StatDb statDb = new StatDb();
+            statDb.User = "User1";
+            statDb.UrlPage = localfile;
+
             //поиск по каждому ключевому слову из списка поиска
             foreach (var search in ListSearch)
 			{
-                Console.WriteLine(CountWordsSearch(filestr, search));
-			}
+                int countWords = CountWordsSearch(filestr, search);
+                Console.WriteLine(search + " - " + countWords);
+                
+                //detail
+                StatWordsDb statWordsDb = new StatWordsDb();
+                statWordsDb.PatentId = statDb.Id;
+                statWordsDb.Word = search;
+                statWordsDb.Count = countWords;
+                //запись в БД
+                StatDb.InsertStatDb(statDb, statWordsDb);
+            }
         }
 
         //поиск кол-ва слов в строке
-        private static string CountWordsSearch(string inputtext, string searchword)
+        private static int CountWordsSearch(string inputtext, string searchword)
         {
             int counter = 0;
             string[] words = inputtext.Split(new char[] { ' ', ',', '.', '!', '?', '"', ';', ':', '[', ']', '(', ')', '\n', '\r', '\t' });
@@ -76,8 +91,7 @@ namespace StatisticsUniqWordsHttp
                 }
 
             }
-            string result = searchword + " - " + counter;
-            return result;
+            return counter;
         }
 
 

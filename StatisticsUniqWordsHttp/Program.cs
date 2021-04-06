@@ -17,7 +17,8 @@ namespace StatisticsUniqWordsHttp
 				file.CountWords(webpage.LocalFile);
 
 			*/
-			CRUD.AddRequest();
+
+			//StatDb.InsertStatDb();
 			Console.ReadKey();
 		}
 	}
