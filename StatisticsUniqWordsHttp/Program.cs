@@ -21,13 +21,13 @@ namespace StatisticsUniqWordsHttp
 			
 				StatisticFile file = new StatisticFile();
 				//вывод статистики по количеству уникальных слов
-				logger.Trace("вывод статистики по количеству уникальных слов");
-				file.CountWords(webpage.LocalFile);			
-			
+				logger.Trace("begin вывод статистики по количеству уникальных слов");
+				file.CountWords(webpage.LocalFile);
+				logger.Trace("end вывод статистики по количеству уникальных слов");
 			}
-			catch (Exception msg)
+			catch (Exception ex)
 			{
-				logger.Error(msg.ToString());
+				logger.Error(ex.ToString());
 			}
 
 			Console.ReadKey();

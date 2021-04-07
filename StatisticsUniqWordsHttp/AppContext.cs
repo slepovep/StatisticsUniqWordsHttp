@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-
 namespace StatisticsUniqWordsHttp
 {
     public class AppContext : DbContext
@@ -34,12 +33,5 @@ namespace StatisticsUniqWordsHttp
 
             //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=statdb;Trusted_Connection=True;");
         }
-
-
-
-
-
-
-
     }
 }

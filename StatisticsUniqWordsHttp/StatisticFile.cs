@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using NLog;
 
 namespace StatisticsUniqWordsHttp
 {
     //вывод статистики из локального файла
-    class StatisticFile
+    public class StatisticFile
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         //список слов участвующих в поиске
         private List<string> listSearch = new List<string>();
         public List<string> ListSearch 
@@ -61,6 +63,7 @@ namespace StatisticsUniqWordsHttp
              statDb.LocalFile = localfile;
              //запись в БД 
              statDb.Id = StatDb.Insert(statDb);
+             logger.Info($"запись в БД таблица statDb: Id={statDb.Id}, User={statDb.User}");
             #endregion
 
             //поиск по каждому ключевому слову из списка поиска
@@ -76,12 +79,13 @@ namespace StatisticsUniqWordsHttp
                  statDetailDb.StatDbId = statDb.Id ;//Id master
                  //запись в БД 
                  StatDetailDb.Insert(statDetailDb);
+                 logger.Info($"запись в БД таблица statDetailDb: Id={statDetailDb.Id}, Word={statDetailDb.Word}, Count={statDetailDb.Count}, StatDbId={statDetailDb.StatDbId}");
                 #endregion
             }
         }
 
         //поиск кол-ва слов в строке
-        private static int CountWordsSearch(string inputtext, string searchword)
+        public int CountWordsSearch(string inputtext, string searchword)
         {
             int counter = 0;
             string[] words = inputtext.Split(new char[] { ' ', ',', '.', '!', '?', '"', ';', ':', '[', ']', '(', ')', '\n', '\r', '\t' });
