@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace StatisticsUniqWordsHttp
 {
+    //вывод статистики из локального файла
     class StatisticFile
     {
         //список слов участвующих в поиске
@@ -55,27 +55,30 @@ namespace StatisticsUniqWordsHttp
 
             sr.Close();
 
-            //инициализация объектов для записи в БД
-            //master
-            StatDb statDb = new StatDb();
-            statDb.User = "User1";
-            statDb.LocalFile = localfile;
             //запись в БД master
-            statDb.Id = StatDb.Insert(statDb);
+            #region
+             StatDb statDb = new StatDb();
+             statDb.User = "User1";
+             statDb.LocalFile = localfile;
+             //запись в БД 
+             statDb.Id = StatDb.Insert(statDb);
+            #endregion
 
             //поиск по каждому ключевому слову из списка поиска
             foreach (var search in ListSearch)
 			{
                 int countWords = CountWordsSearch(filestr, search);
                 Console.WriteLine(search + " - " + countWords);
-                
-                //detail
-                StatDetailDb statDetailDb = new StatDetailDb();
-                statDetailDb.Word = search;
-                statDetailDb.Count = countWords;
-                statDetailDb.StatDbId = statDb.Id ;//Id master
-                //запись в БД detail
-                StatDetailDb.Insert(statDetailDb);
+
+                //запись в БД detail 
+                #region
+                 StatDetailDb statDetailDb = new StatDetailDb();
+                 statDetailDb.Word = search;
+                 statDetailDb.Count = countWords;
+                 statDetailDb.StatDbId = statDb.Id ;//Id master
+                 //запись в БД 
+                 StatDetailDb.Insert(statDetailDb);
+                #endregion
             }
         }
 
@@ -91,7 +94,6 @@ namespace StatisticsUniqWordsHttp
                 {
                     counter++;
                 }
-
             }
             return counter;
         }

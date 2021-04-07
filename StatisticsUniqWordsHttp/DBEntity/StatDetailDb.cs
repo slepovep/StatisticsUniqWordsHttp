@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace StatisticsUniqWordsHttp
 {
@@ -18,20 +17,8 @@ namespace StatisticsUniqWordsHttp
             using (AppContext db = new AppContext())
             {
                 // добавляем в бд
-                db.statWordsDb.Add(statWordsDb);
-
-                // получаем объекты из бд и выводим на консоль
-                var req = db.statDb.ToList();
-                Console.WriteLine("Список объектов:");
-                foreach (StatDb r in req)
-                {
-                    Console.WriteLine($"{r.Id}.{r.User} {r.RequestTime} {r.LocalFile}");
-                }
-
-                //db.SaveChanges();
-                Console.WriteLine("Объекты успешно сохранены");
-
-
+                db.statDetailDb.Add(statWordsDb);
+                db.SaveChanges();
             }
         }
 

@@ -8,11 +8,10 @@ namespace StatisticsUniqWordsHttp
     public class AppContext : DbContext
     {
         public DbSet<StatDb> statDb { get; set; }
-        public DbSet<StatDetailDb> statWordsDb { get; set; }
+        public DbSet<StatDetailDb> statDetailDb { get; set; }
 
         public AppContext()
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

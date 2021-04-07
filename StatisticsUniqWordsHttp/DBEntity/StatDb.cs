@@ -9,7 +9,7 @@ namespace StatisticsUniqWordsHttp
         public string User { get; set; }
         public string LocalFile { get; set; }
         public DateTime RequestTime { get; set; } = DateTime.Now;
-        public List<StatDetailDb> StatWords { get; set; }
+        public List<StatDetailDb> StatDetail { get; set; }
 
         public static int Insert(StatDb statDb)
         {
