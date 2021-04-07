@@ -13,7 +13,7 @@ namespace StatisticsUniqWordsHttp
         public int StatDbId { get; set; }
 
         public static void Insert(StatDetailDb statWordsDb)
-        {
+        {   
             using (AppContext db = new AppContext())
             {
                 // добавляем в бд

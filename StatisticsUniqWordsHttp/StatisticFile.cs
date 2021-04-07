@@ -55,8 +55,7 @@ namespace StatisticsUniqWordsHttp
 
             sr.Close();
 
-            //запись в БД master
-            #region
+            #region запись в БД master
              StatDb statDb = new StatDb();
              statDb.User = "User1";
              statDb.LocalFile = localfile;
@@ -70,8 +69,7 @@ namespace StatisticsUniqWordsHttp
                 int countWords = CountWordsSearch(filestr, search);
                 Console.WriteLine(search + " - " + countWords);
 
-                //запись в БД detail 
-                #region
+                #region запись в БД detail 
                  StatDetailDb statDetailDb = new StatDetailDb();
                  statDetailDb.Word = search;
                  statDetailDb.Count = countWords;

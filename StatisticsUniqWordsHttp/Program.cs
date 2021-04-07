@@ -11,20 +11,23 @@ namespace StatisticsUniqWordsHttp
 		{
 			try
 			{
+				logger.Trace("запуск приложения StatisticsUniqWordsHttp");
 				WebPage webpage = new WebPage();
 				webpage.UrlPage = "https://www.simbirsoft.com/";
 				webpage.FileName = "test.html";
 				//скачивание web-страницы на локальный диск
+				logger.Trace("скачивание web-страницы на локальный диск");
 				webpage.DownloadFile();
 			
 				StatisticFile file = new StatisticFile();
 				//вывод статистики по количеству уникальных слов
+				logger.Trace("вывод статистики по количеству уникальных слов");
 				file.CountWords(webpage.LocalFile);			
 			
 			}
 			catch (Exception msg)
 			{
-				logger.Debug(msg.ToString());
+				logger.Error(msg.ToString());
 			}
 
 			Console.ReadKey();
