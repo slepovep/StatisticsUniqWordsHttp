@@ -59,7 +59,9 @@ namespace StatisticsUniqWordsHttp
             //master
             StatDb statDb = new StatDb();
             statDb.User = "User1";
-            statDb.UrlPage = localfile;
+            statDb.LocalFile = localfile;
+            //запись в БД master
+            statDb.Id = StatDb.Insert(statDb);
 
             //поиск по каждому ключевому слову из списка поиска
             foreach (var search in ListSearch)
@@ -68,12 +70,12 @@ namespace StatisticsUniqWordsHttp
                 Console.WriteLine(search + " - " + countWords);
                 
                 //detail
-                StatWordsDb statWordsDb = new StatWordsDb();
-                statWordsDb.PatentId = statDb.Id;
-                statWordsDb.Word = search;
-                statWordsDb.Count = countWords;
-                //запись в БД
-                StatDb.InsertStatDb(statDb, statWordsDb);
+                StatDetailDb statDetailDb = new StatDetailDb();
+                statDetailDb.Word = search;
+                statDetailDb.Count = countWords;
+                statDetailDb.StatDbId = statDb.Id ;//Id master
+                //запись в БД detail
+                StatDetailDb.Insert(statDetailDb);
             }
         }
 
